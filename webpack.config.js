@@ -27,7 +27,7 @@ const serverConfig = () => {
             // },
         },
         output: {
-            filename: 'newfang.js',
+            filename: 'arcana_dkg.js',
             library: '[name]',
             path: path.resolve(__dirname, 'dist_bundle'),
         }
