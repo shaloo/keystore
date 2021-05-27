@@ -3,7 +3,7 @@ const path = require('path');
 const serverConfig = () => {
     return {
         entry: {
-            "newfang": path.resolve(__dirname, "src", "index.ts")
+            "arcana_dkg": path.resolve(__dirname, "src", "index.ts")
         },
         mode: 'production',
         module: {
