@@ -5,9 +5,10 @@ import { keccak256, toChecksumAddress } from "web3-utils"
 import { ec as EC } from 'elliptic'
 const { BN } = require("bn.js");
 
-const ips = ["13.233.115.178", "13.232.119.133", "13.233.115.10", "65.2.153.188", "65.0.87.110", "15.206.194.32"]
-const nodes: string[] = ips.map(ip => `http://${ip}:8000/rpc`);
-const indexes = [1, 2, 3, 4, 5, 6,]
+// const ips = ["13.233.115.178", "13.232.119.133", "13.233.115.10", "65.2.153.188", "65.0.87.110", "15.206.194.32"]
+const ips = ["dkgnode1.arcana.network", "dkgnode5.arcana.network", "dkgnode2.arcana.network", "dkgnode3.arcana.network", "dkgnode4.arcana.network", "dkgnode6.arcana.network"];
+const nodes: string[] = ips.map(ip => `https://${ip}/rpc`);
+const indexes = [1, 2, 3, 4, 5, 6]
 
 const ec = new EC('secp256k1')
 
@@ -62,7 +63,7 @@ const getPrivateKey = async ({ id, verifier, idToken }: { id: string, idToken: s
     const key = generatePrivate();
     const [publicKey, tokenCommitment] = [getPublicKeyFromPrivateKey(key), keccak256(idToken)];
     const commitments = await createShareCommitments({ verifier, publicKey, tokenCommitment });
-    const derivedPk = await getPrivateKeyFromShares({ id, key, idToken, commitments })
+    const derivedPk = await getPrivateKeyFromShares({ verifier, id, key, idToken, commitments })
     return derivedPk;
   } catch (e) {
     console.log({ e })
@@ -119,14 +120,15 @@ interface CreateShareRequestParams {
   idToken: string;
   key: Buffer;
   id: string;
+  verifier: string;
 }
 
-const createShareRequest = async ({ node, id, idToken, nodeSigs }): Promise<ShareResponse> => {
+const createShareRequest = async ({ verifier, node, id, idToken, nodeSigs }): Promise<ShareResponse> => {
   const { response }: { response: ShareResponse } = await post(
     node,
     generateJsonRPCObject('ShareRequest', {
       encrypted: 'yes',
-      item: [{ verifier_id: id, idtoken: idToken, nodesignatures: nodeSigs, verifieridentifier: "google" }],
+      item: [{ verifier_id: id, idtoken: idToken, nodesignatures: nodeSigs, verifieridentifier: verifier }],
     })
   )
   if (response.error) {
@@ -196,7 +198,7 @@ interface GetPrivateKeyResponse {
   address: string;
   privateKey: string;
 }
-const getPrivateKeyFromShares = async ({ id, key, idToken, commitments }: CreateShareRequestParams) => {
+const getPrivateKeyFromShares = async ({ verifier, id, key, idToken, commitments }: CreateShareRequestParams) => {
   try {
     const nodeSigs = [];
     const promises = []
@@ -205,7 +207,7 @@ const getPrivateKeyFromShares = async ({ id, key, idToken, commitments }: Create
     }
     for (let i = 0; i < nodes.length; i++) {
       const node = nodes[i];
-      const p = createShareRequest({ node, idToken, id, nodeSigs });
+      const p = createShareRequest({ verifier, node, idToken, id, nodeSigs });
       promises.push(p)
     }
     const thresholdCount = ~~(nodes.length / 2) + 1
