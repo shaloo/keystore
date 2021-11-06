@@ -1,0 +1,11 @@
+{
+  "SENTRY_DSN": "",
+  "TEST_CONFIG": {
+    "providerUrl": "",
+    "contractAddress": ""
+  },
+  "TESTNET_CONFIG": {
+    "providerUrl": "",
+    "contractAddress": ""
+  }
+}

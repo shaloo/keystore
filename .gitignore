@@ -1,3 +1,5 @@
 /node_modules/
 /dist_bundle/
 /dist/
+/coverage/
+.DS_Store
