@@ -10,33 +10,24 @@ The network assumes that n/4 of nodes may be malicious, and n/2 + 1 of the nodes
 
 
 ```shell
-npm install -S @arcana-tech/arcana_keystore
+npm install -S @arcana/keystore
+yarn add @arcana/keystore
 ```
   
 ```js 
-import { KeyReconstructor } from '@arcana-tech/arcana_keystore';
-```
-
-### Building using source
-
-```sh 
-node helpers/build.js
-```
-
-Add `arcana_keystore.js` to your project
-
-```html
-<script src="/path/to/arcana_keystore.js"></script>
+import { KeyReconstructor } from '@arcana/keystore';
 ```
 
 ```js
-const { KeyReconstructor } = window.arcana_keystore;
+const { KeyReconstructor } = window.arcana.keystore;
 ```
 
 ## Usage
 
 ### Initialization
+
 ```js
+
 const appID = "0x..." // Get this from arcana dashboard
 
 const keystore = new KeyReconstructor({ appID, network: 'testnet' })

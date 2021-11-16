@@ -1,14 +1,14 @@
 const path = require('path');
 const webpack = require('webpack');
-module.exports = {
-  entry: {
-    arcana_keystore: path.resolve(__dirname, 'src', 'index.ts'),
-  },
-  mode: 'development',
+const { merge } = require('webpack-merge');
+
+const commonConfig = {
+  entry: path.resolve(__dirname, 'src', 'index.ts'),
+  mode: 'production',
   module: {
     rules: [
       {
-        test: /\.(ts|js)?$/,
+        test: /\.(ts|js)x?$/,
         use: {
           loader: 'ts-loader',
           options: {
@@ -19,25 +19,54 @@ module.exports = {
       },
     ],
   },
+  output: {
+    filename: 'keystore.umd.js',
+    library: ['arcana', 'keystore'],
+    libraryTarget: 'umd',
+  },
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js', '.json'],
+  },
+  target: 'web',
+};
+
+const standaloneConfig = {
   plugins: [
     new webpack.ProvidePlugin({
-      process: 'process/browser.js',
+      process: 'process/browser',
       Buffer: ['buffer', 'Buffer'],
     }),
   ],
   resolve: {
-    // mainFields: ['browser', 'module', 'main'],
-    extensions: ['.ts', '.js'],
-    // modules: ['node_modules'],
     fallback: {
+      assert: require.resolve('assert'),
+      buffer: require.resolve('buffer'),
       crypto: require.resolve('crypto-browserify'),
       stream: require.resolve('stream-browserify'),
       util: require.resolve('util'),
     },
   },
   output: {
-    filename: 'arcana_keystore.js',
-    library: '[name]',
-    path: path.resolve(__dirname, 'dist_bundle'),
+    path: path.resolve(__dirname, 'dist/standalone'),
   },
 };
+
+const moduleConfig = {
+  resolve: {
+    fallback: {
+      assert: false,
+      buffer: false,
+      crypto: false,
+      stream: false,
+      util: false,
+    },
+  },
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+  },
+};
+
+module.exports = [
+  merge(commonConfig, standaloneConfig),
+  merge(commonConfig, moduleConfig),
+];

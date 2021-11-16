@@ -7,7 +7,7 @@ const idToken = params.get('id_token');
 console.log({ idToken, accessToken });
 
 const tokenElement = document.getElementById('token');
-const { KeyReconstructor } = window.arcana_keystore;
+const { KeyReconstructor } = window.arcana.keystore;
 tokenElement.innerText = accessToken;
 
 const getId = async () => {
