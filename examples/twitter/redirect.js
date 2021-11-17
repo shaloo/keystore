@@ -7,7 +7,8 @@ const idToken = params.get('id_token');
 console.log({ idToken, accessToken });
 
 const tokenElement = document.getElementById('token');
-const { KeyReconstructor } = window.arcana.keystore;
+const KMS = window.arcana_kms.default;
+console.log({ KMS });
 tokenElement.innerText = accessToken;
 
 const getId = async () => {
@@ -18,8 +19,9 @@ const getId = async () => {
       },
     });
     if (res.status < 400) {
-      const { email, name, id, picture: profileImage } = await res.json();
-      return { email, name, id, profileImage };
+      const profileData = await res.json();
+      console.log({ profileData });
+      return profileData;
     }
   } catch (error) {
     console.log({ error });
@@ -30,25 +32,25 @@ const getKey = async () => {
   try {
     const userData = await getId();
     const nodeListFetcher = {
-      getNodes: async () => {
+      getNodesList: async () => {
         return {
-          nodes: [8080, 8081, 8082, 8083, 8084, 8085].map(
+          nodes: [8085, 8080, 8082, 8081, 8084, 8083].map(
             (p) => `http://localhost:${p}/rpc`
           ),
-          indexes: [6, 2, 4, 1, 3, 5],
+          indexes: [1, 2, 3, 4, 5, 6],
         };
       },
     };
-    const kms = new KeyReconstructor({
-      appID: '0x73A15a259d1bB5ACC23319CCE876a976a278bE82',
-      network: 'test',
-    });
-    const privateKey = await kms.getPrivateKey({
-      id: 'makyl@newfang.io',
-      verifier: 'google',
-      idToken,
-    });
-    console.log({ privateKey });
+    // const kms = new KMS(
+    //   '0xaAC5477207d650500B6a76a11b643398dFf607E5',
+    //   nodeListFetcher
+    // );
+    // const privateKey = await kms.getPrivateKey({
+    //   id: userData.email,
+    //   verifier: 'google',
+    //   idToken,
+    // });
+    // console.log({ privateKey });
   } catch (error) {
     console.log({ error });
   }

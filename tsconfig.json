@@ -1,25 +1,25 @@
 {
   "compilerOptions": {
-      "target": "es2019",
+      "target": "es6",
       "module": "commonjs",
       "outDir": "dist",
-      "allowJs": true,
+      "allowJs": false,
       "alwaysStrict": true,
+      "declaration": true,
+      "declarationDir": "./types",
       "sourceMap": false,
       "noImplicitAny": false,
-      "moduleResolution": "node",
+      "resolveJsonModule": true,
       "downlevelIteration": true,
       "esModuleInterop": true,
       "lib": [
-          "dom",
-          "es2018"
+          "es5",
+          "DOM",
       ]
       
   },
   "include": [
       "src/*.ts",
-      "./node_modules/types-bn/index.d.ts",
-      "src/*.js"
   ],
   "exclude": []
 }
