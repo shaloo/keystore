@@ -68,5 +68,5 @@ const moduleConfig = {
 
 module.exports = [
   merge(commonConfig, standaloneConfig),
-  merge(commonConfig, moduleConfig),
+  // merge(commonConfig, moduleConfig),
 ];

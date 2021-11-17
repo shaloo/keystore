@@ -1,6 +1,6 @@
 {
   "name": "@arcana/keystore",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Base Library to make calls to Arcana DKG network",
   "main": "dist/standalone/keystore.umd.js",
   "jsdelivr": "dist/standalone/keystore.umd.js",
@@ -57,10 +57,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/arcana-network/dkg_client.git"
+    "url": "git+https://github.com/arcana-network/keystore.git"
   },
   "bugs": {
-    "url": "https://github.com/arcana-network/dkg_client/issues"
+    "url": "https://github.com/arcana-network/keystore/issues"
   },
-  "homepage": "https://github.com/arcana-network/dkg_client#readme"
+  "homepage": "https://github.com/arcana-network/keystore#readme"
 }

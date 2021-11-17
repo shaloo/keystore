@@ -78,7 +78,7 @@ export class Logger {
     )} ${this.getTime()} ${message}}`;
     this.consoleLog(level, logMessage);
     if (params) {
-      console.info({ params });
+      this.consoleLog(level, JSON.stringify(params));
     }
   }
 
