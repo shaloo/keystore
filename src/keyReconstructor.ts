@@ -533,9 +533,11 @@ export const getPublicKeyFromPrivateKey = (
 ): PublicKey => {
   const logger = getLogger('getPublicKeyFromPrivateKey');
   logger.debug('privateKey', { privateKey: privateKey.toString('hex') });
-  let buffer = privateKey;
-  if (!(buffer instanceof Buffer)) {
-    buffer = Buffer.from(privateKey.toString('hex'), 'hex');
+  let buffer: Buffer;
+  if (!(privateKey instanceof Buffer)) {
+    buffer = Buffer.from(privateKey.toString(16, 64), 'hex');
+  } else {
+    buffer = privateKey;
   }
   const decryptedPubKey = getPublic(buffer).toString('hex');
   const X = decryptedPubKey.slice(2, 66);
