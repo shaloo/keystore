@@ -2,7 +2,7 @@
   "name": "@arcana/keystore",
   "version": "0.0.6",
   "description": "Base Library to make calls to Arcana DKG network",
-  "main": "dist/standalone/keystore.umd.js",
+  "main": "dist/index.js",
   "jsdelivr": "dist/standalone/keystore.umd.js",
   "unpkg": "dist/standalone/keystore.umd.js",
   "types": "types/index.d.ts",
@@ -13,9 +13,9 @@
   "scripts": {
     "test": "jest",
     "test:coverage": "jest --coverage",
-    "build": "npm run build:types && npm run build:web",
+    "build": "npm run build:web && npm run build:ts",
     "build:web": "rimraf dist/ && webpack",
-    "build:types": "rimraf types/ && tsc --project tsconfig.json --emitDeclarationOnly",
+    "build:ts": "rimraf types/ && tsc --project tsconfig.json",
     "prepare": "husky install",
     "prepublishOnly": "npm run build"
   },

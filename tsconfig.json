@@ -1,22 +1,21 @@
 {
   "compilerOptions": {
       "target": "es6",
-      "module": "commonjs",
+      "module": "umd",
       "outDir": "dist",
-      "allowJs": false,
+      "allowJs": true,
       "alwaysStrict": true,
       "declaration": true,
-      "declarationDir": "./types",
+      "declarationDir": "types",
       "sourceMap": false,
       "noImplicitAny": false,
-      "resolveJsonModule": true,
+      "moduleResolution": "Node",
       "downlevelIteration": true,
       "esModuleInterop": true,
       "lib": [
           "es5",
           "DOM",
       ]
-      
   },
   "include": [
       "src/*.ts",

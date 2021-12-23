@@ -1,5 +1,5 @@
 import { ethers } from 'ethers';
-import Config from './config.json';
+import Config from './config';
 
 export type network = 'test' | 'testnet';
 

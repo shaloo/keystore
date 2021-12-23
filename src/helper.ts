@@ -1,5 +1,5 @@
 import * as Sentry from '@sentry/browser';
-import Config from './config.json';
+import Config from './config';
 import { getLogger } from './logger';
 
 export const generateJsonRPCObject = (method: string, parameters: any) => ({

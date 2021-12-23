@@ -1,4 +1,4 @@
-{
+export default {
   "SENTRY_DSN": "",
   "TEST_CONFIG": {
     "providerUrl": "",
