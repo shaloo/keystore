@@ -1,7 +1,7 @@
 {
   "name": "@arcana/keystore",
   "version": "0.0.6",
-  "description": "Arcana decentralised key management library for secure, simple and strong public/private key generation and verification, backed by blockchain technology.",
+  "description": "Key management library for secure and simple public/private key retrieval from Arcana distributed key generation system.",
   "main": "dist/standalone/keystore.umd.js",
   "jsdelivr": "dist/standalone/keystore.umd.js",
   "unpkg": "dist/standalone/keystore.umd.js",
